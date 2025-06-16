@@ -30,29 +30,36 @@
         // This is where we build the map
         const map = new maplibregl.Map({
             container: "map",
-            zoom: 10,
-            center: [-73.96, 40.70],
+            zoom: 10, //zoom level
+            center: [-73.96, 40.70], // lat longtude
             style: {
                 version: 8,
                 glyphs: "https://protomaps.github.io/basemaps-assets/fonts/{fontstack}/{range}.pbf",
                 sprite: `https://protomaps.github.io/basemaps-assets/sprites/v4/light`,
+                // two sources for maps
                 sources: {
                     basemap: {
                         type: "vector",
+                        // look for a file type of pmtiles in this same directory
                         url: "pmtiles://./basemap-nyc.pmtiles",
                         attribution: "<a href='https://protomaps.com'>Protomaps</a> <a href='https://openstreetmap.org/copyright'>© OpenStreetMap Contributors</a>"
                     },
                     other_source: {
                         type: "geojson",
+                        // parade route
                         data: "./parade.json"
                     }
                 },
                 layers: [
+                    // make the bottom layer: basemap // choose style
                     ...basemaps.layers("basemap", basemaps.namedFlavor("white"), { lang: "en" }),
                     {
+                        // this is middle layer
                         id: "other_layer",
                         source: "other_source",
+                        // map type: line
                         type: "line",
+                        // color the route
                         paint: {
                             "line-color": "red",
                             "line-width": 4,
