@@ -49,6 +49,7 @@
                     {
                         id: "other_layer",
                         source: "other_source",
+                        // instead of line, we use fill with hex codes for zone
                         type: "fill",
                         'paint': {
                             "fill-color": [
@@ -63,9 +64,11 @@
                                 "#eeeeee"        // default color if no match
                             ],
                             'fill-opacity': 0.6,
+                            // removes outline color
                             'fill-outline-color': "rgba(0, 0, 0, 0)"
                         }
                     },
+                    // adds another layer for just labels, puts it on top of the fill
                     ...basemaps.layers("basemap", basemaps.namedFlavor("grayscale"), { lang: "en", labelsOnly: true })
                 ]
             },
@@ -102,6 +105,7 @@
             const coordinates = e.lngLat;
 
             // get the information from the zone at those coordinates
+            // this is field from GEOJSON
             const zone = e.features[0].properties.ZONEID || "not needed";
 
             // Make the popup text
