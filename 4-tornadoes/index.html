@@ -34,28 +34,32 @@
                 glyphs: "https://protomaps.github.io/basemaps-assets/fonts/{fontstack}/{range}.pbf",
                 sprite: `https://protomaps.github.io/basemaps-assets/sprites/v4/light`,
                 sources: {
+                    // basemap: URL is a link to protomaps with API key
                     basemap: {
                         "type": "vector",
                         "url": "https://api.protomaps.com/tiles/v4.json?key=8a5da0b18dde352d",
                         "attribution": "<a href=\"https://osm.org/copyright\">© OpenStreetMap</a>",
                     },
+                    // tornado map file
                     "tornado-paths": {
                         type: "vector",
                         url: "pmtiles://./tornadoes.pmtiles",
                     }
                 },
                 layers: [
+                    // basemap layer
                     ...basemaps.layers("basemap", basemaps.namedFlavor("light")),
                     {
                         id: "tornado-layer",
                         type: "line",
                         source: "tornado-paths",
-                        'source-layer': 'tornlayer',
+                        'source-layer': 'tornlayer', // name from tippecanoe
                         paint: {
                             "line-color": "red",
                             "line-width": 1,
                         },
                     },
+                    // another basemap on top with labels only
                     ...basemaps.layers("basemap", basemaps.namedFlavor("light"), { lang: "en", labelsOnly: true })
                 ]
 
